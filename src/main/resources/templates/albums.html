@@ -9,7 +9,15 @@
 
 <body>
     <h1>SongR - Albums information</h1>
-    <h3>Hello <span th:text="${name}">name</span>, thanks for visiting!</h3>
+    <h3>Hello Stranger<span th:text="${name}">name</span>, thanks for visiting!</h3>
+    <form method="post" action="/albums">
+        <input name="title" placeholder="Input Album Title"/>
+        <input name="artist" placeholder="Input Album Artist"/>
+        <input type="number" name="songCount" placeholder="Input song count"/>
+        <input type="number" name="length" placeholder="Input Album length"/>
+        <input name="imgUrl" placeholder="Input image URL"/>
+        <input type="submit" />
+    </form>
     <span th:each="firstAlbum : ${firstAlbum}">
         <h4>Album No <strong th:text="${firstAlbumStat.index+1}" > album index</strong>: <strong th:text="${firstAlbum.title}">title</strong></h4>
         <ul>
