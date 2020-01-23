@@ -27,6 +27,12 @@
             <li><img th:src="@{${firstAlbum.imgUrl}}"/></li>
 
         </ul>
+        <form th:action="${'/albums/' + album.id + '/songs'}" method="POST">
+            <input type="text" name="title" />
+            <input type="number" name="length" />
+            <input type="number" name="trackNumber" />
+            <input type="submit" />
+        </form>
     </span>
 </body>
 

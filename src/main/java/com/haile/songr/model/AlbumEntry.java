@@ -1,33 +1,42 @@
 package com.haile.songr.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class AlbumEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
     private String title;
     private String artist;
     private int songCount;
-    private int length; // song length in seconds
+    private int length; // full album length in seconds
     private String imgUrl;
+
+    // Relationship between Album to Song would be one album to many songs
+    @OneToMany(mappedBy = "album")
+    List<Song> songs;
 
     // setting default constructor with no arguments
     public AlbumEntry() {}
 
     public AlbumEntry(String title, String artist, int songCount, int length, String imgUrl) {
+        this.songs = new LinkedList<>();
         this.title = title;
         this.artist = artist;
         this.songCount = songCount;
         this.length = length;
         this.imgUrl = imgUrl;
+    }
+
+
+    public List<Song> getSongs() {
+        return songs;
     }
 
     public String getTitle() {
@@ -50,4 +59,6 @@ public class AlbumEntry {
         return imgUrl;
     }
 
+
+    public long getId() { return this.id; }
 }

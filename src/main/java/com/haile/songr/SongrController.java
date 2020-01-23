@@ -2,6 +2,8 @@ package com.haile.songr;
 
 import com.haile.songr.model.AlbumEntry;
 import com.haile.songr.model.AlbumEntryRepository;
+import com.haile.songr.model.Song;
+import com.haile.songr.model.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class SongrController {
 
     @Autowired
     AlbumEntryRepository repo;
+
+    @Autowired
+    SongRepository songRepo;
 
     @GetMapping("/")
     public RedirectView getHome(Model m) {
@@ -53,6 +58,17 @@ public class SongrController {
     public RedirectView addAlbumEntry(String title, String artist, int songCount, int length, String imgUrl) {
         AlbumEntry newEntry = new AlbumEntry(title, artist, songCount, length, imgUrl);
         repo.save(newEntry);
+        return new RedirectView("/albums");
+    }
+
+    @PostMapping("/albums/{id}/songs")
+    public RedirectView addSong(@PathVariable Long id, String title, int length, int trackNumber) {
+        AlbumEntry album = repo.getOne(id);
+        Song song = new Song(album, title, length, trackNumber);
+//        AlbumEntry album = repo.getOne(id);
+        song.setAlbum(album);
+        songRepo.save(song);
+
         return new RedirectView("/albums");
     }
 
