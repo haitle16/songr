@@ -10,7 +10,7 @@ public class AlbumEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     private String title;
     private String artist;
@@ -60,5 +60,5 @@ public class AlbumEntry {
     }
 
 
-    public long getId() { return this.id; }
+    public Long getId() { return this.id; }
 }

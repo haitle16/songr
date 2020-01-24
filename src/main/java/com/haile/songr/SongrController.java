@@ -50,7 +50,7 @@ public class SongrController {
 //                new AlbumEntry("Frozen 2", "Idina Menzel, Kristen Bell, Josh Gad",11, 2058, "https://images-na.ssl-images-amazon.com/images/I/81yP4%2BK5g0L._SX522_.jpg")
 //        };
         List<AlbumEntry> entries = repo.findAll();
-        m.addAttribute("firstAlbum", entries);
+        m.addAttribute("firstAlbums", entries);
         return "albums";
     }
 
@@ -62,13 +62,13 @@ public class SongrController {
     }
 
     @PostMapping("/albums/{id}/songs")
-    public RedirectView addSong(@PathVariable Long id, String title, int length, int trackNumber) {
+    public RedirectView addSong(@PathVariable Long id, String title, int length, int trackNumber, Model m) {
+        List<Song> entries = songRepo.findAll();
+        Song song = new Song(title, length, trackNumber);
         AlbumEntry album = repo.getOne(id);
-        Song song = new Song(album, title, length, trackNumber);
-//        AlbumEntry album = repo.getOne(id);
         song.setAlbum(album);
         songRepo.save(song);
-
+        m.addAttribute("songs", entries);
         return new RedirectView("/albums");
     }
 

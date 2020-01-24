@@ -9,3 +9,9 @@ img{
     width: 150px;
     height: 150px;
 }
+
+ul {
+    border-style: outset;
+    display: inline-block;
+    padding-inline-end: 40px;
+}
