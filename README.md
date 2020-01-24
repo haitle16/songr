@@ -14,7 +14,9 @@
 
 * localhost:8080/albums for the albums page, which renders an database of albums to the page using thymeleaf.
     * albums route also have a form for users able to add their favorite album to the database.
-
+    * user should be able to see information about all the songs on the site.
+    * user should be able to add songs to an album.
+    
 
 #### Test
 * Tested the constructor, getter and setter methods for happy paths.

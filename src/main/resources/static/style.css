@@ -4,3 +4,14 @@ body {
     background: linear-gradient(#2c2a2a, darkslategrey, #2c2a2a);
     color: white;
 }
+
+img{
+    width: 150px;
+    height: 150px;
+}
+
+ul {
+    border-style: outset;
+    display: inline-block;
+    padding-inline-end: 40px;
+}

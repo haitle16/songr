@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>SongR</title>
+    <link rel="stylesheet" type= "text/css" href="/style.css">
+</head>
+
+<body>
+    <div th:fragment="song">
+        <ol th:each="song : ${songs}">
+            <li><p> Track 1: <strong th:text="${song.title}"></strong></p></li>
+        </ol>
+    </div>
+</body>
+
+</html>

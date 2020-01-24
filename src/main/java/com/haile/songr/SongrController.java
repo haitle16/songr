@@ -2,6 +2,8 @@ package com.haile.songr;
 
 import com.haile.songr.model.AlbumEntry;
 import com.haile.songr.model.AlbumEntryRepository;
+import com.haile.songr.model.Song;
+import com.haile.songr.model.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class SongrController {
 
     @Autowired
     AlbumEntryRepository repo;
+
+    @Autowired
+    SongRepository songRepo;
 
     @GetMapping("/")
     public RedirectView getHome(Model m) {
@@ -45,7 +50,7 @@ public class SongrController {
 //                new AlbumEntry("Frozen 2", "Idina Menzel, Kristen Bell, Josh Gad",11, 2058, "https://images-na.ssl-images-amazon.com/images/I/81yP4%2BK5g0L._SX522_.jpg")
 //        };
         List<AlbumEntry> entries = repo.findAll();
-        m.addAttribute("firstAlbum", entries);
+        m.addAttribute("firstAlbums", entries);
         return "albums";
     }
 
@@ -53,6 +58,17 @@ public class SongrController {
     public RedirectView addAlbumEntry(String title, String artist, int songCount, int length, String imgUrl) {
         AlbumEntry newEntry = new AlbumEntry(title, artist, songCount, length, imgUrl);
         repo.save(newEntry);
+        return new RedirectView("/albums");
+    }
+
+    @PostMapping("/albums/{id}/songs")
+    public RedirectView addSong(@PathVariable Long id, String title, int length, int trackNumber, Model m) {
+        List<Song> entries = songRepo.findAll();
+        Song song = new Song(title, length, trackNumber);
+        AlbumEntry album = repo.getOne(id);
+        song.setAlbum(album);
+        songRepo.save(song);
+        m.addAttribute("songs", entries);
         return new RedirectView("/albums");
     }
 

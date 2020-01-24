@@ -18,16 +18,24 @@
         <input name="imgUrl" placeholder="Input image URL"/>
         <input type="submit" />
     </form>
-    <span th:each="firstAlbum : ${firstAlbum}">
-        <h4>Album No <strong th:text="${firstAlbumStat.index+1}" > album index</strong>: <strong th:text="${firstAlbum.title}">title</strong></h4>
-        <ul>
-            <li><h4>Artist: <strong th:text="${firstAlbum.artist}"></strong></h4></li>
-            <li><h4>Album length: <strong th:text="${firstAlbum.songCount}"></strong> tracks</h4></li>
-            <li><h4>Full album length: <strong th:text="${firstAlbum.length}"></strong> seconds</h4></li>
-            <li><img th:src="@{${firstAlbum.imgUrl}}"/></li>
-
+    <div>
+        <ul th:each="firstAlbum : ${firstAlbums}">
+            <h4>Artist: <strong th:text="${firstAlbum.artist}"></strong></h4>
+            <h4>Album length: <strong th:text="${firstAlbum.songCount}"></strong> tracks</h4>
+            <h4>Full album length: <strong th:text="${firstAlbum.length}"></strong> seconds</h4>
+            <img th:src="@{${firstAlbum.imgUrl}}"/>
+            <form th:action="${'/albums/' + firstAlbum.id + '/songs'}" method="POST">
+                <input type="text" name="title"  placeholder="Track Title"/>
+                <input type="number" name="length" placeholder="Length"/>
+                <input type="number" name="trackNumber" placeholder="Track Number"/>
+                <input type="submit" />
+            </form>
+            <h4>Tracks:</h4>
+            <div th:each="song : ${firstAlbum.songs}">
+                <li th:text="${song.title}"></li>
+            </div>
         </ul>
-    </span>
+    </div>
 </body>
 
 </html>
